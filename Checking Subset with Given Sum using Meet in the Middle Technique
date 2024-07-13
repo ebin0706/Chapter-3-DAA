@@ -1,0 +1,29 @@
+def is_subset_sum(arr, n, E):
+    half = n // 2
+    subset1 = []
+    subset2 = []
+    for i in range(1 << half):
+        sum = 0
+    for j in range(half):
+            if i & (1 << j):
+                sum += arr[j]
+        subset1.append(sum)
+
+    for i in range(1 << (n - half)):
+        sum = 0
+        for j in range(n - half):
+            if i & (1 << j):
+                sum += arr[half + j]
+        subset2.append(sum)
+    subset1.sort()
+    for s in subset2:
+        if s == E or E - s in subset1:
+            return True
+    return False
+arr = [1, 3, 9, 2, 7, 12]
+E = 15
+n = len(arr)
+if is_subset_sum(arr, n, E):
+    print("Subset with sum E exists")
+else:
+    print("No subset with sum E")
